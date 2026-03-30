@@ -49,15 +49,15 @@ iSATA_Network/
 
 ├── SATA_CBL_Coords_With_High_MCD_MNI_atlas # Function for Step 3 & 4 Network Analysisadd to Final_Modularized_Code in SATA path
 
-├── aal_MNI_Network                         # Add to Atlas folder (download AAL116 https://github.com/Neurita/std_brains/tree/master/atlases/aal_SPM12)
+├── aal_MNI_Network                         # Add to Atlas folder it has 9 network divisions of AAL 116 atlas (download AAL atlas https://github.com/Neurita/std_brains/tree/master/atlases/aal_SPM12)
 
-├── sample_iSATA_Results                    # Input MRI and roast results png results    
+├── Sample_Data                             # Input MRI and roast results png results    
 
 └── tool 		                                	# Create iSATA_Python folder add this folder to installation         
 
 **Outputs**
 
-The pipeline generates two primary data and visual reports:
+The pipeline generates two primary data and visual reports for the MNI mat file as input gives average current density (eg. subID_MNI.mat):
 
 subID_NwCD.mat: Visualizes raw mean current densities sorted from highest to lowest engagement.
 
