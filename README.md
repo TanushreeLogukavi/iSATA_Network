@@ -29,28 +29,29 @@ Check iSATA Manual in the repository.
 
 1. Instead of Sample_Script_ISATA.mat use iSATA_Network_Ind_Main.mat to run individual subject iSATA Network analysis
 2. This script involves 5 steps as described in mannual i-SATA 2026.pdf (download from repository)
-3.  
+   
 
 Folder Structure
 
 iSATA_Network/
 │
 ├── README.md
-├── iSATA
+├── SATA_CBL_Retrieve_Coords                # Replace existing file in path "\SATA\Final_Modularised_Code\Utilities\SATA_CBL_Retrieve_Coords.m"
 ├── iSATA_Network_Ind_Main.m                # Main execution script
-├── iSATA_MNI_Network		                    	# add to Final_Modularized_Code in SATA path
-├── SATA_CBL_Coords_With_High_MCD_MNI_atlas # add to Final_Modularized_Code in SATA path
-├── iSATA_MNI_Network.m                     # Function for Step 5 Network Analysis
+├── iSATA_MNI_Network		                    	# Function for Step 5 Network Analysis add to Final_Modularized_Code in SATA path
+├── SATA_CBL_Coords_With_High_MCD_MNI_atlas # Function for Step 3 & 4 Network Analysisadd to Final_Modularized_Code in SATA path
+├── aal_MNI_Network                         # Add to Atlas folder (download AAL116 https://github.com/Neurita/std_brains/tree/master/atlases/aal_SPM12)
 ├── sample_iSATA_Results                    # Input MRI and roast results png results    
 └── tool 		                                	# Create iSATA_Python folder add this folder to installation         
 
 Outputs
 The pipeline generates two primary visual reports:
 
-subID_NwCD.fig: Visualizes raw mean current densities sorted from highest to lowest engagement.
+subID_NwCD.mat: Visualizes raw mean current densities sorted from highest to lowest engagement.
 
-subID_DNTE.fig: Visualizes normalized distributed energy across networks and hemispheres.
+subID_DNTE.mat: Visualizes normalized distributed energy across networks and hemispheres.
 
 Created By - Dr. Rajan Kashyap & Tanushree L Date -12 March, 2026- at NIMHANS, Bangalore
+rajankashyap6@gmail.com
 tanushreelogukavi@gmail.com
 The code is distributed for the academic Purposes only
