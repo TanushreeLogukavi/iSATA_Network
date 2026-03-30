@@ -4,9 +4,9 @@ This repository contains a step-by-step pipeline for performing brain montage si
 
 Key Metrics:
 
-NwCD (Network Current Density): Aggregated raw electric field intensities for each functional network.
+1. NwCD (Network Current Density): Aggregated raw electric field intensities for each functional network.
 
-DNTE (Distributed Network Total Energy): A normalized index (0-1) providing a ranking of current intensity received by each network (in both hemispheres, and each  hemisphere)
+2. DNTE (Distributed Network Total Energy): A normalized index (0-1) providing a ranking of current intensity received by each network (in both hemispheres, and each  hemisphere)
 
 🛠️ Requirements & Setup
 1. Prerequisites
@@ -27,45 +27,21 @@ Python version
 Python 3.11 (recommended)
 
 2. Installation
-Clone this repository mat codes final modularised and utility
 
-
-
-Workflow Steps
-Step 1: ROAST Simulation
-Automates the simulation of electric fields using individual subject MRI.
-
-Input: T1-weighted NIfTI file.
-
-Output: Electric field distribution, 3D renders, and resampled NIfTI files.
-
-Step 2: AC-PC Detection
-Detects the Anterior Commissure (AC) and Posterior Commissure (PC) points required for MNI space mapping.
-
-Automatic: Uses acpcdetect via the terminal.
-
-Manual: Uses SATA_acpc_extract if coordinates are pre-identified.
-
-Step 3 & 4: MNI Mapping & DTDI
-Maps the E-field to the AAL-116 atlas regions and calculates the Dose Target Determination Index (DTDI).
-
-Ranks brain regions based on target engagement.
-
-Step 5: Network Analysis
-Aggregates the AAL-116 data into 9 functional networks (Default Mode, Frontoparietal, etc.).
-
-NwCD Figure: Vertical stack of Global, Left, and Right network intensities.
-
-DNTE Figure: 2x2 grid showing normalized rankings (High-to-Low).
+Check iSATA Manual in the repository
 
 Folder Structure
-Plaintext
-project-root/
+
+iSATA_Network/
 │
+├── README.md
+├── iSATA
 ├── iSATA_Network_Ind_Main.m         # Main execution script
+├── iSATA_MNI_Network			# add to Final_Modularized_Code in SATA path
+├── SATA_CBL_Coords_With_High_MCD_MNI_atlas # add to Final_Modularized_Code in SATA path
 ├── iSATA_MNI_Network.m     # Function for Step 5 Network Analysis
-├── sample_data/            # Input MRI and roast results
-└── output/                 # .fig, .mat, and .png results
+├── sample_iSATA_Results            # Input MRI and roast results png results    
+└── tool 			# Create iSATA_Python folder add this folder to installation         
 
 Outputs
 The pipeline generates two primary visual reports:
