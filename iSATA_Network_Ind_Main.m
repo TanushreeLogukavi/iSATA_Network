@@ -23,19 +23,19 @@
 % --- DIRECT PATH CONFIGURATION ---
 % Manually set your SATA and ROAST installation folders here
 % for example
-%SATA_PATH  = 'C:\Users\user\Downloads\SATA'; 
-%ROAST_PATH = 'C:\Users\user\Downloads\SATA\roast-3.0'; 
+SATA_PATH  = '\Downloads\SATA'; 
+ROAST_PATH = '\Downloads\SATA\roast-3.0'; %Updated ROAST version can also be used
 
 % Add them to the MATLAB search path so the functions can be found
-%addpath(genpath(SATA_PATH));
-%addpath(genpath(ROAST_PATH));
+addpath(genpath(SATA_PATH));
+addpath(genpath(ROAST_PATH));
 
 global SATA_PATH ROAST_PATH;
 SATA_CBL_init;
 
 % --- 1. USER INPUT ---
-mri_input_file  = 'D:\sample_data\iSATA_results\sub02_T1w\roast\sub02_T1w.nii'; 
-output_base_dir = 'D:\sample_data\iSATA_results';
+mri_input_file  = '\sample_path\sub01_T1w\roast\Sub01_T1w.nii'; 
+output_base_dir = '\sample_path\iSATA_results';
 
 % --- 2. DOSE SETTINGS ---
 electrode_loc1   = 'CP5';     
@@ -101,7 +101,7 @@ end
 % --- 6. FIELDTRIP REWRITE ---
 % Search for the resampled/processed NIfTI to standardize for FieldTrip
 % Define folder path
-folder_path = 'D:\sample_data\iSATA_results\sub02_T1w\roast';
+folder_path = '\sample_path\iSATA_results\Sub01_T1w\roast';
 
 % Initialize output file variable
 file_out = '';
@@ -135,12 +135,14 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% STEP - 2 Starts here to get acpc file run this commands in terminal 
-export ARTHOME=/mnt/c/Users/user/Downloads/SATA/Utilities/ART %set ART folder path from your SATA toolbox
+export ARTHOME=/mnt/Downloads/SATA/Utilities/ART %set ART folder path from your SATA toolbox
 export PATH=$ARTHOME/bin:$PATH
-acpcdetect -i /mnt/d/iSATA_Results/sub02_T1w/roast/ftOut.nii%set path to your input roast file ftout.nii
+acpcdetect -i /mnt/sample_path/iSATA_Results/Sub01_T1w/roast/ftOut.nii%set path to your input roast file ftout.nii
+%Note - run sudo apt install liblapack3 in wsl/ubuntu terminal to avoid
+%error in installation 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Step 2 can be skipped by mannualy detecting ac-pc points from the brain image  
-in_path  = 'D:\sample_data\iSATA_results\sub01_T1w\roast'; 
+in_path  = 'D:\sample_path\iSATA_results\Sub01_T1w\roast'; 
 txt_filepath = fullfile(in_path, 'ftOut_ACPC.txt');
 [AC, PC] = SATA_acpc_extract(txt_filepath);
 
@@ -191,13 +193,13 @@ end
 
 clear; clc;
 % --- CONFIG ---
-sub_id    = 'sub02'; 
-in_path   = 'D:\sample_data\iSATA_results\sub02_T1w\roast';  
-out_path  = 'D:\sample_data\iSATA_results\sub02_T1w\isata'; 
+sub_id    = 'Sub01'; 
+in_path   = '\Sample_path\Sub01\roast';  
+out_path  = '\Sample_Data\Sub01\isata'; 
 
 % FIX: Use single quotes to ensure this is a character array for SPM
-atlas_nii = 'C:\Users\user\Downloads\SATA\Utilities\Atlas\aal_for_SPM12\ROI_MNI_V4.nii';
-atlas_mat = 'C:\Users\user\Downloads\SATA\Utilities\Atlas\aal_for_SPM12\ROI_MNI_V4_List.mat';
+atlas_nii = '\Downloads\SATA\Utilities\aal_for_SPM12\aal_for_SPM12\ROI_MNI_V4.nii';
+atlas_mat = '\Downloads\SATA\Utilities\aal_for_SPM12\aal_for_SPM12\ROI_MNI_V4_List.mat';
 
 if ~exist(out_path, 'dir'); mkdir(out_path); end
 
@@ -228,6 +230,30 @@ if isempty(e_pos_list); error('No .pos file found!'); end
 % Load ROAST node/elem if not already in workspace
 % load(fullfile(in_path, 'your_roast_output.mat')); 
 
+% --- AUTOMATED MESH FILE SEARCH ---
+% Search for all .mat files in the directory
+mat_files = dir(fullfile(in_path, '*.mat'));
+mesh_file = '';
+
+% Pattern: SubjectID followed by underscore, 8 digits, 'T', and 6 digits
+% Example: Sub01_20260330T124209.mat
+pattern = [sub_id, '_\d{8}T\d{6}\.mat$'];
+
+for i = 1:length(mat_files)
+    if ~isempty(regexp(mat_files(i).name, pattern, 'once'))
+        mesh_file = fullfile(in_path, mat_files(i).name);
+        break; 
+    end
+end
+
+if isempty(mesh_file)
+    error('Could not find the primary ROAST mesh file for subject %s in %s', sub_id, in_path);
+else
+    fprintf('Found Mesh File: %s\n', mesh_file);
+    load(mesh_file, 'node', 'elem');
+end
+
+% --- DATA RETRIEVAL ---
 [Coordinates, Electric_Field] = SATA_CBL_Retrieve_Coords(e_pos_list(1), node, elem); 
 
 % ---  MSP DETECTION (Step 3) ---
@@ -253,7 +279,7 @@ set(findobj('Name', 'i-SATA AAL 116 Results'), 'Visible', 'on');
 savefig(gcf, fullfile(out_path, [sub_id '_MNI_DTDI.fig']));
 
 % ---  NETWORK ANALYSIS (Step 5) ---
-network_path = 'C:\Users\user\Downloads\SATA\Utilities\Atlas\aal_for_SPM12\aal_MNI_V4_Network.mat';
+network_path = '\Downloads\SATA\Utilities\aal_for_SPM12\aal_for_SPM12\aal_MNI_V4_Network.mat';
 
 if exist('mni_table', 'var') && ~isempty(mni_table)
     
