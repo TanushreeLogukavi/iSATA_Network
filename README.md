@@ -16,7 +16,7 @@ Matlab version (R2021a or later recommended).
 
 ROAST Toolbox (v3.0 or v4.0) (https://www.parralab.org/roast/)
 
-i-SATA Toolbox. (https://researchdata.ntu.edu.sg/dataset.xhtml?persistentId=doi:10.21979/N9/KWTCWK)
+i-SATA Toolbox. (https://doi.org/10.21979/N9/KWTCWK)
 
 Note : The principles of 𝓲-SATA, installation and usage are detailed in the paper (Kashyap et al. 2020)
 
@@ -26,7 +26,8 @@ Python 3.11 (recommended)
 
 2. Installation
 
-Check iSATA Manual in the repository and previous manual (https://researchdata.ntu.edu.sg/dataset.xhtml?persistentId=doi:10.21979/N9/KWTCWK) .
+Check iSATA Manual in the repository and previous manual (https://doi.org/10.21979/N9/KWTCWK)
+) .
 
 1. Instead of Sample_Script_ISATA.mat use iSATA_Network_Ind_Main.mat to run individual subject iSATA Network analysis
 2. This script involves 5 steps as described in mannual i-SATA 2026.pdf (download from repository)
