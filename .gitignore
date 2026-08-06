@@ -1,0 +1,11 @@
+# Ignore the example directory containing large brain imaging data files
+example/
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
